@@ -2,30 +2,28 @@ from __future__ import division
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from sklearn import datasets
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 import seaborn as sns
 sns.set()
 
+# load the skearn iris dataset
+def simulated_data():
+    iris = datasets.load_iris()
+    class_1 = iris.data[iris.target == 0]
+    class_2 = iris.data[iris.target == 1]
+    label_1 = iris.target[iris.target == 0]
+    label_2 = iris.target[iris.target == 1]
 
-# load the Spam Dataset
-def load_data():
-    spam = pd.read_table('https://statweb.stanford.edu/~tibs/ElemStatLearn/datasets/spam.data', sep=' ', header=None)
-
-    print("spam: {}".format(spam.shape))
-    X = spam.iloc[:, :-1]
-    y = spam.iloc[:, -1]
-    X = np.asarray(X)
-
-    # change the output labels to +/- 1
-    y = np.asarray(y) * 2 - 1
+    # convert 0 to -1
+    label_1 = label_1 - 1
+    X = np.concatenate((class_1, class_2), axis=0)
+    y = np.concatenate((label_1, label_2), axis=0)
 
     # Standardize the data
     scaler = StandardScaler()
     X = scaler.fit_transform(X)
-
-    print("X: ", X.shape)
-    print("y: ", y.shape)
 
     return X, y
 
@@ -145,6 +143,7 @@ def plot_misclassification_error(betas_g, betas_fg, X, y):
     plt.plot(range(length), error_fg, c='red', label='fast gradient')
     plt.xlabel('Number of Iteration')
     plt.ylabel('Misclassification error')
+    plt.title('Misclassification error vs. iteration when Lambda = ' + str(lambduh))
     plt.legend(loc='upper right')
     plt.show()
 
@@ -179,7 +178,9 @@ There are three plots:
 2. the misclassification error vs. iteration between gradient and fast gradient.
 3. the misclassification error vs. log(lambda) by the fast gradient.
 """
-X, y = load_data()
+X, y = simulated_data()
+print("X: ", X.shape)
+print("y: ", y.shape)
 
 # Split the data into traning and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
@@ -201,6 +202,6 @@ betas_g = gradient(beta, t_init, lambduh, X_train, y_train)
 beta = np.zeros(d)
 theta = np.zeros(d)
 betas_fg = fast_gradient(beta, theta, t_init, lambduh, X_train, y_train)
-plot_objs(betas_g, betas_fg, lambduh)
+plot_objs(betas_g, betas_fg, lambduh, X_train, y_train)
 plot_misclassification_error(betas_g, betas_fg, X_train, y_train)
 opt_lambduh = find_optimal_lambduh(t_init, X_train, y_train)
