@@ -12,7 +12,7 @@ The project has the following structure:
 
    	Data558/
       |- src/
-    |- simulated.py
+      	|- simulated.py
         	|- spam.py
         	|- comparison.py
         	|- __init__.py
