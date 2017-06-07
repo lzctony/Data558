@@ -10,13 +10,13 @@ to solve the binary classfication problem.
 
 The project has the following structure:
 
-   	Data558/
-      |- src/
-      	|- simulated.py
-        |- spam.py
-        |- comparison.py
-        |- __init__.py
-      |- README.md
+Data558/
+		|- src/
+      		   |- simulated.py
+        	   |- spam.py
+        	   |- comparison.py
+               |- __init__.py
+        |- README.md
 
 ### Simple Simulated Dataset
 Consider the iris dataset from the sklearn library
