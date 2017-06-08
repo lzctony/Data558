@@ -19,17 +19,16 @@ The project has the following structure:
       |- README.md
 
 ### Simple Simulated Dataset
-Consider the iris dataset from the sklearn library
+Randomly generate 200 examples with 20 features.
 
 ### Real World Dataset
-Consider the Spam dataset from The Elements of Statistical Learning
+Consider the Spam dataset from The Elements of Statistical Learning.
 ```
 https://statweb.stanford.edu/~tibs/ElemStatLearn/datasets/spam.data
 
 ```
 
-The simulated.py uses the iris dataset from sklearn library. We pick two classes and use the logistic regression with
-L2-regularized paramter to do the binary classification.
+The simulated.py uses the random generation data from numpy.random library. We pick two classes and use the logistic regression with L2-regularized paramter to do the binary classification.
 
 The spam.py uses the real world data (spam) from the above url. The data comes from The Elements of Statistical Learning. We use the logistic regression with L2-regularized paramter to do the binary classification.
 
