@@ -2,22 +2,23 @@ from __future__ import division
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn import datasets
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 import seaborn as sns
 sns.set()
 
-# load the skearn iris dataset
+# generate random data
 def simulated_data():
-    iris = datasets.load_iris()
-    class_1 = iris.data[iris.target == 0]
-    class_2 = iris.data[iris.target == 1]
-    label_1 = iris.target[iris.target == 0]
-    label_2 = iris.target[iris.target == 1]
+    # set random seed
+    np.random.seed(42)
 
-    # convert 0 to -1
-    label_1 = label_1 - 1
+    class_1 = np.random.normal(loc=0, scale=1, size=(100, 20))
+    class_2 = np.random.normal(loc=10, scale=2, size=(100, 20))
+
+    # label +1/-1
+    label_1 = np.zeros(100, dtype=int) - 1
+    label_2 = np.ones(100, dtype=int)
+
     X = np.concatenate((class_1, class_2), axis=0)
     y = np.concatenate((label_1, label_2), axis=0)
 
